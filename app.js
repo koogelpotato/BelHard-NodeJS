@@ -7,11 +7,11 @@ const bodyParser = require('body-parser');
 //const productRoutes = require('./api/routes/products');
 //const orderRoutes = require('./api/routes/orders');
 
-app.use('/products', require('./api/controllers/product.controller'));
-
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/products', require('./api/controllers/product.controller'));
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
