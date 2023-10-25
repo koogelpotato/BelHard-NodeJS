@@ -43,9 +43,19 @@ function deleteProduct(req, res, next){
 }
 
 function createSchema(req, res, next){
+
     const schema = Joi.object({
-        name: Joi.string().required(),
-        price: Joi.number().min(0).max(99999999.99).precision(2).required()
+        name: Joi.string().required().messages({
+            'string.empty': 'Имя не может быть пустым значением',
+            'any.required': 'Введите имя'
+        }),
+        price: Joi.number().max(99999999.99).precision(2).required().messages({
+            'number.base': 'Введите цену',
+            'number.negative': 'Цена должна быть положительной',
+            'number.min': 'Цена не может быть равна нулю',
+            'number.max': 'Цена должна быть ниже 99999999.99',
+            'any.required': 'Введите цену'
+        })
     });
 
     validateRequest(req, next, schema);
@@ -53,9 +63,18 @@ function createSchema(req, res, next){
 
 function updateSchema(req, res, next){
     const schema = Joi.object({
-        name: Joi.string().required(),
-        price: Joi.number().min(0).max(99999999.99).precision(2).required()
-    })
+        name: Joi.string().required().messages({
+            'string.empty': 'Имя не может быть пустым значением',
+            'any.required': 'Введите имя'
+        }),
+        price: Joi.number().max(99999999.99).precision(2).required().messages({
+            'number.base': 'Введите цену',
+            'number.negative': 'Цена должна быть положительной',
+            'number.min': 'Цена не может быть равна нулю',
+            'number.max': 'Цена должна быть ниже 99999999.99',
+            'any.required': 'Введите цену'
+        })
+    });
     
     validateRequest(req, next, schema);
 }

@@ -21,11 +21,9 @@ async function createProduct(params){
     if(await db.Product.findOne({where: {name: params.name}})){
         throw 'Такой продукт уже существует, пожалуйста попробуйте заново';
     }
-    
-    
 
-    if(params.price < 0){
-        throw 'Цена продукта не может быть меньше нуля';
+    if(params.price == 0){
+       throw 'Цена товара не может равнятся нулю';
     }
 
     const product = new db.Product(params);

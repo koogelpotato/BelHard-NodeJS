@@ -2,10 +2,9 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const swaggerUI = require("swagger-ui-express");
 
 
-//const productRoutes = require('./api/routes/products');
-//const orderRoutes = require('./api/routes/orders');
 
 app.use(morgan('dev'));
 app.use(express.json());
