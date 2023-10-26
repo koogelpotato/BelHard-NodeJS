@@ -1,10 +1,33 @@
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const swaggerUI = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
 
 
+const options = {
+	definition: {
+		openapi: "3.0.0",
+		info: {
+			title: "Shop API",
+			version: "1.0.0",
+			description: "A simple Express Library API",
+		},
+		servers: [
+			{
+				url: "http://localhost:3000",
+			},
+		],
+	},
+	apis: ["./api/controllers/*.js"],
+};
+
+const specs = swaggerJsDoc(options);
+
+
+const app = express();
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use(morgan('dev'));
 app.use(express.json());
