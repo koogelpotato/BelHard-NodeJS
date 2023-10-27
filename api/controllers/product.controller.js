@@ -140,7 +140,7 @@ function getProductById(req, res, next){
  */
 function createProduct(req, res, next){
     productService.createProduct(req.body)
-    .then(() => res.json({message: 'Товар был успешно создан!'}))
+    .then(() => res.json({message: 'Product was created!'}))
     .catch(next);
 }
 
@@ -183,7 +183,7 @@ function createProduct(req, res, next){
  */
 function updateProduct(req,res,next){
     productService.updateProduct(req.params.id, req.body)
-    .then(() => res.json({message: 'Товар был обновлен'}))
+    .then(() => res.json({message: 'Product was updated'}))
     .catch(next);
 }
 
@@ -213,7 +213,7 @@ function updateProduct(req,res,next){
  */
 function deleteProduct(req, res, next){
     productService.deleteProduct(req.params.id)
-    .then(() => res.json({message: 'Товар был удален'}))
+    .then(() => res.json({message: 'Product was deleted'}))
     .catch(next);
 }
 
