@@ -1,6 +1,4 @@
 function errorHandler(err, req, res, next) {
-    console.error(err.message);
-    console.error(err.stack);
     switch (true) {
         case typeof err === 'string':
             const is404 = err.toLowerCase().endsWith('not found');
