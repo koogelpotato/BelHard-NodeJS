@@ -17,6 +17,6 @@ DATABASE=
 PORT=
 ```
 
-5. Open your web browser and post in localhost:(your port)/api-docs, see example below:
+5. Open your web browser and post in (your host):(your port)/api-docs, see example below:
 `localhost:3000/api-docs/`
 
