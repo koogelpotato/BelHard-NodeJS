@@ -63,6 +63,9 @@ module.exports = router;
  *                     type: string
  *                   price:
  *                     type: number
+ *       500:
+ *         description: Server error occured 
+ * 
  */
 function getAllProducts(req,res, next){
     productService.getAllProducts()
@@ -95,6 +98,10 @@ function getAllProducts(req,res, next){
  *                   type: string
  *                 price:
  *                   type: number
+ *       404:
+ *         description: The product was not found
+ *       500:
+ *         description: Server error occured
  */
 function getProductById(req, res, next){
     productService.getProductById(req.params.id)
@@ -128,6 +135,8 @@ function getProductById(req, res, next){
  *               properties:
  *                 message:
  *                   type: string
+ *       500:
+ *         description: Server error occured
  */
 function createProduct(req, res, next){
     productService.createProduct(req.body)
@@ -167,6 +176,10 @@ function createProduct(req, res, next){
  *               properties:
  *                 message:
  *                   type: string
+ *       404:
+ *         description: The product was not found
+ *       500:
+ *         description: Server error occured
  */
 function updateProduct(req,res,next){
     productService.updateProduct(req.params.id, req.body)
@@ -195,6 +208,8 @@ function updateProduct(req,res,next){
  *               properties:
  *                 message:
  *                   type: string
+ *       404:
+ *         description: The product was not found
  */
 function deleteProduct(req, res, next){
     productService.deleteProduct(req.params.id)
@@ -203,18 +218,17 @@ function deleteProduct(req, res, next){
 }
 
 function createSchema(req, res, next){
-
     const schema = Joi.object({
         name: Joi.string().required().messages({
-            'string.empty': 'Имя не может быть пустым значением',
-            'any.required': 'Введите имя'
+            'string.empty': 'Name cannot be an empty value',
+            'any.required': 'Enter a name'
         }),
-        price: Joi.number().max(99999999.99).precision(2).required().messages({
-            'number.base': 'Введите цену',
-            'number.negative': 'Цена должна быть положительной',
-            'number.min': 'Цена не может быть равна нулю',
-            'number.max': 'Цена должна быть ниже 99999999.99',
-            'any.required': 'Введите цену'
+        price: Joi.number().min(0.01).max(99999999.99).precision(2).required().messages({
+            'number.base': 'Enter a price',
+            'number.negative': 'Price must be positive',
+            'number.min': 'Price cannot be zero',
+            'number.max': 'Price must be less than 99999999.99',
+            'any.required': 'Enter a price'
         })
     });
 
@@ -223,16 +237,14 @@ function createSchema(req, res, next){
 
 function updateSchema(req, res, next){
     const schema = Joi.object({
-        name: Joi.string().required().messages({
-            'string.empty': 'Имя не может быть пустым значением',
-            'any.required': 'Введите имя'
+        name: Joi.string().messages({
+            'string.empty': 'Name cannot be an empty value'
         }),
-        price: Joi.number().max(99999999.99).precision(2).required().messages({
-            'number.base': 'Введите цену',
-            'number.negative': 'Цена должна быть положительной',
-            'number.min': 'Цена не может быть равна нулю',
-            'number.max': 'Цена должна быть ниже 99999999.99',
-            'any.required': 'Введите цену'
+        price: Joi.number().min(0.01).max(99999999.99).precision(2).messages({
+            'number.base': 'Enter a price',
+            'number.negative': 'Price must be positive',
+            'number.min': 'Price cannot be zero',
+            'number.max': 'Price must be less than 99999999.99'
         })
     });
     

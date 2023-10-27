@@ -14,6 +14,7 @@ HOST=
 USER=
 PASSWORD=
 DATABASE=
+PORT=
 ```
 
 5. Open your web browser and post in localhost:(your port)/api-docs, see example below:

@@ -19,25 +19,15 @@ async function getProductById(id){
 
 async function createProduct(params){
     if(await db.Product.findOne({where: {name: params.name}})){
-        throw 'Такой продукт уже существует, пожалуйста попробуйте заново';
-    }
-
-    if(params.price == 0){
-       throw 'Цена товара не может равнятся нулю';
+        throw 'Such a product already exists';
     }
 
     const product = new db.Product(params);
-
     await product.save();
 }
 
 async function updateProduct(id, params){
     const product = await getProduct(id);
-
-    if(params.price < 0){
-        throw 'Цена продукта не может быть меньше нуля';
-    }
-
     Object.assign(product,params)
     await product.save();
 }
@@ -49,6 +39,6 @@ async function deleteProduct(id){
 
 async function getProduct(id) {
     const product = await db.Product.findByPk(id);
-    if (!product) throw 'Товар не найден';
+    if (!product) throw 'Product not found';
     return product;
 }
